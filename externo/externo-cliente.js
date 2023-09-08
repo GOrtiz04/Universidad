@@ -10,7 +10,7 @@ module.exports = {
         //let id = req.params.id;
         const options = {
             'method': 'GET',
-            'url': 'http://localhost:3000/tipoClientes/find/id',
+            'url': 'http://localhost:3000/clientes/find/id',
             //'url': `http://localhost:3000/tipoClientes/find/id/${id}`,
             'headers': {
                 'Content-Type': 'application/json'
@@ -20,7 +20,7 @@ module.exports = {
         try {
             const result = await axios(options);
             const resultado = result.data;
-            const mensaje = "Se buscó el tipo de cliente: " + resultado.nombre + " con el id: " + resultado.id;
+            const mensaje = "Se buscó al cliente: " + resultado.nombres + " " + resultado.apellidos;
             res.status(200).send(mensaje);
         } catch (e) {
             console.log(e);
@@ -29,26 +29,34 @@ module.exports = {
     },
 
     async create(req, res) {
-        let nombre = req.body.nombre;
-        let descuento = req.body.descuento;
+        let nombres = req.body.nombres;
+        let apellidos = req.body.apellidos;
+        let nit = req.body.nit;
+        let num_celular = req.body.num_celular;
+        let correo = req.body.correo;
+        let id_tipo_cliente = req.body.id_tipo_cliente;
         //let id = req.params.id;
         const options = {
             'method': 'POST',
-            'url': 'http://localhost:3000/tipoClientes/create',
+            'url': 'http://localhost:3000/clientes/create',
             //'url': `http://localhost:3000/tipoClientes/find/id/${id}`,
             'headers': {
                 'Content-Type': 'application/json'
             },
             data: { 
-                nombre: nombre,
-                descuento: descuento,
+                nombres: nombres,
+                apellidos: apellidos,
+                nit: nit,
+                num_celular: num_celular,
+                correo: correo,
+                id_tipo_cliente: id_tipo_cliente,
                 estado: 1 
             }
         };
         try {
             const result = await axios(options);
             const resultado = result.data;
-            const mensaje = "Se creo el tipo de cliente: " + resultado.nombre + " con el descuento: " + resultado.descuento;
+            const mensaje = "Se creo el cliente: " + resultado.nombres + " " + resultado.apellidos;
             res.status(200).send(mensaje);
         } catch (e) {
             console.log(e);
@@ -57,28 +65,34 @@ module.exports = {
     },
 
     async update(req, res) {
-        let nombre = req.body.nombre;
-        let descuento = req.body.descuento;
-        let estado = req.body.estado;
+        let nombres = req.body.nombres;
+        let apellidos = req.body.apellidos;
+        let nit = req.body.nit;
+        let num_celular = req.body.num_celular;
+        let correo = req.body.correo;
+        let id_tipo_cliente = req.body.id_tipo_cliente;
         let id = req.body.id;
         const options = {
             'method': 'PUT',
-            'url': 'http://localhost:3000/clientes/updateTipo',
+            'url': 'http://localhost:3000/clientes/update',
             //'url': `http://localhost:3000/tipoClientes/find/id/${id}`,
             'headers': {
                 'Content-Type': 'application/json'
             },
             data: { 
-                nombre: nombre,
-                descuento: descuento,
-                estado: estado, 
+                nombres: nombres,
+                apellidos: apellidos,
+                nit: nit,
+                num_celular: num_celular,
+                correo: correo,
+                id_tipo_cliente: id_tipo_cliente,
                 id: id
             }
         };
         try {
             const result = await axios(options);
             const resultado = result.data;
-            const mensaje = "Se actualizo el tipo de cliente";
+            const mensaje = "Se actualizo el cliente";
             res.status(200).send(mensaje);
         } catch (e) {
             console.log(e);
