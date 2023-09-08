@@ -2,7 +2,8 @@
 const Sequelize     = require('sequelize');
 const db = require("../models");
 const moment = require('moment');
-const axios = require('axios')
+const axios = require('axios');
+const { NOW } = require('sequelize');
 
 module.exports = {
     async findId(req, res) {
@@ -20,7 +21,7 @@ module.exports = {
         try {
             const result = await axios(options);
             const resultado = result.data;
-            const mensaje = "Se buscó el producto" + resultado.nombre;
+            const mensaje = "Se buscó el producto " + resultado.nombre;
             res.status(200).send(mensaje);
         } catch (e) {
             console.log(e);
@@ -29,34 +30,27 @@ module.exports = {
     },
 
     async create(req, res) {
-        let nombres = req.body.nombres;
-        let apellidos = req.body.apellidos;
-        let nit = req.body.nit;
-        let num_celular = req.body.num_celular;
-        let correo = req.body.correo;
-        let id_tipo_cliente = req.body.id_tipo_cliente;
+        let nombre = req.body.nombre;
+        let costo = req.body.costo;
+        let precio_venta = req.body.precio_venta;
         //let id = req.params.id;
         const options = {
             'method': 'POST',
-            'url': 'http://localhost:3000/clientes/create',
+            'url': 'http://localhost:3000/productos/create',
             //'url': `http://localhost:3000/tipoClientes/find/id/${id}`,
             'headers': {
                 'Content-Type': 'application/json'
             },
             data: { 
-                nombres: nombres,
-                apellidos: apellidos,
-                nit: nit,
-                num_celular: num_celular,
-                correo: correo,
-                id_tipo_cliente: id_tipo_cliente,
-                estado: 1 
+                nombre: nombre,
+                costo: costo,
+                precio_venta: precio_venta,
             }
         };
         try {
             const result = await axios(options);
             const resultado = result.data;
-            const mensaje = "Se creo el cliente: " + resultado.nombres + " " + resultado.apellidos;
+            const mensaje = "Se creo el producto: " + resultado.nombre;
             res.status(200).send(mensaje);
         } catch (e) {
             console.log(e);
@@ -65,34 +59,33 @@ module.exports = {
     },
 
     async update(req, res) {
-        let nombres = req.body.nombres;
-        let apellidos = req.body.apellidos;
-        let nit = req.body.nit;
-        let num_celular = req.body.num_celular;
-        let correo = req.body.correo;
-        let id_tipo_cliente = req.body.id_tipo_cliente;
+        let nombre = req.body.nombre;
+        let costo = req.body.costo;
+        let precio_venta = req.body.precio_venta;
+        let estado = req.body.estado;
         let id = req.body.id;
+        let existencia = req.body.existencia;
         const options = {
             'method': 'PUT',
-            'url': 'http://localhost:3000/clientes/update',
+            'url': 'http://localhost:3000/productos/update',
             //'url': `http://localhost:3000/tipoClientes/find/id/${id}`,
             'headers': {
                 'Content-Type': 'application/json'
             },
             data: { 
-                nombres: nombres,
-                apellidos: apellidos,
-                nit: nit,
-                num_celular: num_celular,
-                correo: correo,
-                id_tipo_cliente: id_tipo_cliente,
+                nombre: nombre,
+                costo: costo,
+                precio_venta: precio_venta,
+                estado: estado,
+                existencia: existencia,
+                updatedAt: NOW(),
                 id: id
             }
         };
         try {
             const result = await axios(options);
             const resultado = result.data;
-            const mensaje = "Se actualizo el cliente";
+            const mensaje = "Se actualizo el producto";
             res.status(200).send(mensaje);
         } catch (e) {
             console.log(e);
